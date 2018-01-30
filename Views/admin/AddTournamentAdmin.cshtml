@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "AddTournamentAdmin";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+
+
+
+<div class="col-sm-12" style="border:2px solid #FFB63E;border-left:0px;border-right:0px;padding:15px;margin-bottom:20px;color: #0ed364; background:#000;">
+    <h1 style="text-align:center;font-weight:bold;">Add New Tournament</h1>
+</div>
+
+
+<div class="col-sm-12" style="text-align: center;">
+    <form action="/admin/AddTourAdmin" method="post">
+        <div class="col-sm-4"></div>
+        <div class="container-fluid col-sm-4" id="login_border" style=" border: 5px;border-color: #ffb63e;border-width: 5px;border-style: solid;border-radius: 15px;">
+            <div class="col-sm-12">
+
+                <!-- 1st r -->
+               
+                <div class="row" id="frm_pad" style="padding-top:12px">
+
+                    <div class="col-sm-12 form-group">
+                        <input class="form-control input-lg focus" id="" name="Tournament_name" placeholder="Tournament Name" type="text" required>
+                    </div>
+                </div>
+                <div class="row" id="frm_pad" style="padding-top:12px">
+                    <div class="col-sm-12 form-group">
+                        <input class="form-control input-lg focus" id="teamsAllowed" name="No_of_Teams_Allowed" type="number" placeholder="No of teams allowed" required>
+                    </div>
+                </div>
+                <div class="row" id="frm_pad" style="padding-top:12px">
+
+                    <div class="col-sm-12 form-group">
+
+                        <input type="submit" class="form-control input-lg focus" name="Signup" id="code" style="color: black; background-color: #0ed364">
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!-- 2nd r -->
+
+        </div>
+        <div class="col-sm-4"></div>
+    </form>
+
+</div>
+
+
+

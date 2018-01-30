@@ -1,0 +1,223 @@
+﻿@{
+    ViewBag.Title = "TournamentTree";
+    Layout = "~/Views/Shared/_Layoutmain.cshtml";
+}
+
+
+<script type="text/javascript">
+    function MyFunc() {
+        
+            if ("@ViewBag.tour" == null) {
+                //nothing to do
+            }
+            else if ("@ViewBag.tour" != null) {
+                $('#modalTour').modal('show');
+            }
+        }
+
+</script>
+
+<br /><br />
+<div style="background-color: #FFB63E; color:white; height:70px; padding:10px">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="col-md-4" style="float: right; padding: 10px">
+                
+                <button onclick="Tournament()" class="btn btn-success" style="background-color: rgba(0, 0, 0, 0.86); border-color: rgba(0, 0, 0, 0.86); color: #13e56e;margin-left:50% ">Start Tournament now</button>
+                <script>
+                    function Tournament() {
+                        $.getJSON("/Home/StarttouCommand", function (t) {
+                            if (t =="Dont Know") {
+                                alert("Dont Know :'(");
+                            }
+                            else if (t==true) {
+                                window.location.assign("/Main/CheckInPage");
+                            }
+                            else if (t==false) {
+                               
+                                $('#noopponent').modal('show');
+                            }
+                           
+                            else if (t != "Dont Know") {
+                                alert(t);
+                            }
+                    })
+                    }
+                </script>
+              
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="noopponent" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style=" width:inherit">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="width:inherit; background-color:#FFB63E; color:white; font-family:Candara">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="font-size:25px">Attention</h3>
+            </div>
+            <div class="modal-body" style="font-size:18px">
+                <p>Dear Captain, There is no enough oppoent please Wait</p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+<!--Tournament-->
+
+<div id="modalTour" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style=" width:inherit">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="width:inherit; background-color:#FFB63E; color:white; font-family:Candara">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="font-size:25px">Instructions</h3>
+            </div>
+            <div class="modal-body" style="font-size:25px">
+                <h1>@ViewBag.tour</h1>
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" style="height:50px; width:200px" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container" id="style-1">
+    <h1 style="color:#FFB63E">These teams we have already registered</h1>
+    <table style="color:#FFB63E; text-align:center" class="table">
+        <tbody>
+            <tr style="font-size:18px">
+                <th>Team name</th>
+                <th>Captain name</th>
+            </tr>
+            @foreach(var v in ViewBag.tournamentTeams)
+            {
+                <tr >
+                    <td>@v.Team_name</td>
+                    <td>@v.Team_Captain</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<div id="timetocheckin" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style=" width:inherit">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="width: 50%; margin-left: 25%; padding-left: 20px; padding-right: 20px; background-color: rgba(255, 182, 62, 0.71); color: white; font-family: Candara; ">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="font-size: 25px; color: #0ed364; text-align: center;">Attention</h3>
+            </div>
+            <div class="modal-body" style="font-size:18px">
+                <p>Its time to Start the Game</p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="foote"><span id="time"></span> minutes!</div>
+
+
+
+<script type="text/javascript">
+
+    function startTimer(duration, display) {
+        var timer = duration, minutes, seconds;
+        setInterval(function () {
+            minutes = parseInt(timer / 60, 10)
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            if (seconds == 01 && minutes == 00) {
+                $('#timetocheckin').modal('show');
+            }
+            display.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                timer = duration;
+            }
+        }, 1000);
+    }
+
+    window.onload = function () {
+        var fiveMinutes = 60 * 1,
+            display = document.querySelector('#time');
+
+
+        startTimer(fiveMinutes, display);
+
+    };
+
+</script>
+
+
+
+
+    @*<div class="container" id="style-1">
+
+
+       
+        <div class="container">
+
+
+
+
+            <div>
+                <h2 style="color:#13e56e">Round 1 Round 2</h2>
+
+            </div>
+
+            <div class="main" id="tournament">
+                <ul class="round round-1">
+
+                    <li class="spacer">&nbsp;</li>
+
+                    <li class="game game-top winner" style="color:white">Lousville <span>79</span></li>
+                    <li class="game game-spacer">&nbsp;</li>
+                    <li class="game game-bottom " style="color:white">NC A&T <span>48</span></li>
+
+                    <li class="spacer">&nbsp;</li>
+
+                    <li class="game game-top winner" style="color:white">Colo St <span>84</span></li>
+                    <li class="game game-spacer">&nbsp;</li>
+                    <li class="game game-bottom " style="color:white">Missouri <span>72</span></li>
+
+                    <li class="spacer">&nbsp;</li>
+                </ul>
+                <ul class="round round-2">
+
+                    <li class="spacer">&nbsp;</li>
+
+                    <li class="game game-top winner" style="color:white">Lousville <span>82</span></li>
+                    <li class="game game-spacer">&nbsp;</li>
+                    <li class="game game-bottom " style="color:white">Colo St <span>56</span></li>
+
+                    <li class="spacer">&nbsp;</li>
+                </ul>
+
+            </div>
+        </div>
+    </div>*@

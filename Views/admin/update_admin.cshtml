@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "update_admin";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<div class="col-sm-12" style="border:2px solid #FFB63E;border-left:0px;border-right:0px;padding:15px;margin-bottom:20px;color: #0ed364; background:#000;">
+    <h1 style="text-align:center;font-weight:bold;">Update Admin</h1>
+</div>
+
+
+<div class="col-sm-12" style="text-align: center;">
+    <form action="/admin/update_update_admin/@Model.Id" method="post">
+        <div class="col-sm-4"></div>
+        <div class="container-fluid col-sm-4" id="login_border" style=" border: 5px;border-color: #ffb63e;border-width: 5px;border-style: solid;border-radius: 15px;">
+            <div class="col-sm-12">
+
+                <!-- 1st r -->
+
+                <div class="row" id="frm_pad" style="padding-top:12px">
+
+                    <div class="col-sm-12 form-group">
+                        <input class="form-control input-lg focus" id="" name="username" value="@Model.username" placeholder="UserName" type="text" required>
+                    </div>
+                </div>
+                <div class="row" id="frm_pad" style="padding-top:12px">
+                    <div class="col-sm-12 form-group">
+                        <input class="form-control input-lg focus" id="" name="pin" type="password" value="@Model.pin" placeholder="Password" required>
+                    </div>
+                </div>
+                <div class="row" id="frm_pad" style="padding-top:12px">
+                    <div class="col-sm-12 form-group">
+                        <input class="form-control input-lg focus" id="" name="first_name" type="text" value="@Model.first_name" placeholder="First Name" required>
+                    </div>
+                </div>
+                <div class="row" id="frm_pad" style="padding-top:12px">
+                    <div class="col-sm-12 form-group">
+                        <input class="form-control input-lg focus" id="" name="last_name" type="text" value="@Model.last_name" placeholder="Last Name" required>
+                    </div>
+                </div>
+                <div class="row" id="frm_pad" style="padding-top:12px">
+                    <div class="col-sm-12 form-group">
+                        <input class="form-control input-lg focus" id="" name="email" type="email" value="@Model.email" placeholder="email" required>
+                    </div>
+                </div>
+
+                <div class="row" id="frm_pad" style="padding-top:12px">
+
+                    <div class="col-sm-12 form-group">
+
+                        <input type="submit" class="form-control input-lg focus" name="Signup" id="code" style="color: black; background-color: #0ed364">
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!-- 2nd r -->
+
+        </div>
+        <div class="col-sm-4"></div>
+    </form>
+
+</div>
+

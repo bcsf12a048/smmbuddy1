@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "update_player";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<div class="col-sm-12" style="border:2px solid #FFB63E;border-left:0px;border-right:0px;padding:15px;margin-bottom:20px;color: #0ed364; background:#000;">
+    <h1 style="text-align:center;font-weight:bold;">Update Player</h1>
+</div>
+
+
+<div class="col-sm-12" style="text-align: center;">
+    <form action="/admin/update_update_player/@Model.Id" method="post">
+        <div class="col-sm-4"></div>
+        <div class="container-fluid col-sm-4" id="" style=" border: 5px;border-color: #ffb63e;border-width: 5px;border-style: solid;border-radius: 15px;">
+            <div class="col-sm-12">
+
+                <!-- 1st r -->
+
+                <div class="row" id="frm_pad" style="padding-top:12px">
+
+                    <div class="col-sm-12 form-group">
+                        <input class="form-control input-lg focus" id="" name="name" value="@Model.name" placeholder="Name" type="text" required>
+                    </div>
+                </div>
+                <div class="row" id="frm_pad" style="padding-top:12px">
+                    <div class="col-sm-12 form-group">
+                        <input class="form-control input-lg focus" id="" name="email" value="@Model.email" type="text" placeholder="Email" required>
+                    </div>
+                </div>
+                <div class="row" id="frm_pad" style="padding-top:12px">
+                    <div class="col-sm-12 form-group">
+                        <select name="status" class="form-control " id="" required>
+
+                            <option selected disabled>Status</option>
+                            <option value="@Model.status">@Model.status</option>
+                            <option value="Banned">Banned</option>
+                            <option value="Playing">Playing</option>
+                            <option value="End">End</option>
+                            <option value="Ready">Ready</option>
+                            <option value="Watting">Watting</option>
+
+                        </select>
+
+                    </div>
+                </div>
+                <div class="row" id="frm_pad" style="padding-top:12px">
+                    <div class="col-sm-12 form-group">
+
+                        <input class="form-control input-lg focus" id="" name="role" value="@Model.role" type="text" placeholder="Role" required>
+                    </div>
+                </div>
+                <div class="row" id="frm_pad" style="padding-top:12px">
+                    <div class="col-sm-12 form-group">
+
+                        <input class="form-control input-lg focus" id="" name="pin" value="@Model.pin" type="text" placeholder="Password" required>
+                    </div>
+                </div>
+                <div class="row" id="frm_pad" style="padding-top:12px">
+                    <div class="col-sm-12 form-group">
+
+                        <input class="form-control input-lg focus" id="" name="username" value="@Model.username" type="text" placeholder="User Name" required>
+                    </div>
+                </div>
+                <div class="row" id="frm_pad" style="padding-top:12px">
+                    <div class="col-sm-12 form-group">
+                        <input class="form-control input-lg focus" id="" name="No_OfMatches_Win" value="@Model.No_OfMatches_Win" type="text" placeholder="Total Matches Win" required>
+                    </div>
+                </div>
+                <div class="row" id="frm_pad" style="padding-top:12px">
+                    <div class="col-sm-12 form-group">
+                        <input class="form-control input-lg focus" id="" name="No_OfMatches_lose" value="@Model.No_OfMatches_lose" type="text" placeholder="Total Matches Lose" required>
+                    </div>
+                </div>
+                <div class="row" id="frm_pad" style="padding-top:12px">
+                    <div class="col-sm-12 form-group">
+                        <input class="form-control input-lg focus" id="" name="No_OfMatches_Play" value="@Model.No_OfMatches_Play" type="text" placeholder="Total Matches Play" required>
+                    </div>
+                </div>
+                <div class="row" id="frm_pad" style="padding-top:12px">
+                    <div class="col-sm-12 form-group">
+                        <input class="form-control input-lg focus" id="" name="Team_name" value="@Model.Team_name" type="text" placeholder="Team name" required>
+                    </div>
+                </div>
+                <div class="row" id="frm_pad" style="padding-top:12px">
+
+                    <div class="col-sm-12 form-group">
+
+                        <input type="submit" class="form-control input-lg focus" name="Save" id="code" style="color: black; background-color: #0ed364">
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!-- 2nd r -->
+
+        </div>
+        <div class="col-sm-4"></div>
+    </form>
+
+</div>
+

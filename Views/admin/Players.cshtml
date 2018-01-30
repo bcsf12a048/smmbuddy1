@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Players";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<div class="col-sm-12" style="border:2px solid #FFB63E;border-left:0px;border-right:0px;padding:15px;margin-bottom:20px;color: #0ed364; background:#000;">
+    <h1 style="text-align:center;font-weight:bold;">Players Dashboard</h1>
+</div>
+<div class="container-fluid  " style="overflow-x:auto;overflow-y:auto" >
+
+    <table class=" table" id="table_custom">
+    <caption>&nbsp;</caption>
+    <thead>
+        <tr>
+            <th>Player&nbsp;ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Role</th>
+            <th>User&nbsp;Name</th>
+            <th>Pin</th>
+            <th>Total&nbsp;Matches&nbsp;Played</th>
+            <th>Total&nbsp;Matches&nbsp;Win</th>
+            <th>Total&nbsp;Matches&nbsp;Lose</th>
+            <th>Team&nbsp;Name</th>
+            <th>Action</th>
+
+        </tr>
+    </thead>
+    <tbody id="client_nw" class="">
+        @foreach (var x in Model)
+        {
+            <tr>
+                <td>@x.Id</td>
+                <td>@x.name</td>
+                <td>@x.email</td>
+                <td>@x.status</td>
+                <td>@x.role</td>
+                <td>@x.username</td>
+                <td>@x.pin</td>
+                <td>@x.No_OfMatches_Play</td>
+                <td>@x.No_OfMatches_Win</td>
+                <td>@x.No_OfMatches_lose</td>
+                <td>@x.Team_name</td>
+
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="/admin/update_player/@x.Id">Update</a></li>
+                            <li><a href="/admin/delete_player/@x.Id">Delete</a></li>
+                        </ul>
+                    </div>
+                </td>
+
+            </tr>
+        }
+
+
+    </tbody>
+    </table>
+
+</div>
+
+
+

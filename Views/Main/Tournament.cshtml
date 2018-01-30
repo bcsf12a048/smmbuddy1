@@ -1,0 +1,564 @@
+﻿@{
+    ViewBag.Title = "Tournament";
+    Layout = "~/Views/Shared/_Layoutmain.cshtml";
+}
+
+
+ <!--Check in form-->
+<div class="modal fade" id="checkin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="loginmodal-container" style="background-color: rgba(255, 182, 62, 0.71);">
+            <h1>Login to Your Account</h1><br>
+            <form action="/Home/CheckInLogin" method="post">
+                <input type="text" name="Team_Name" placeholder="Team name">
+                <input type="text" name="Captain_name" placeholder="Captain name">
+               <input type="text" name="Tournament_name" placeholder="Tournament name" />
+                <input type="submit" name="login" class="login loginmodal-submit" value="Check In">
+            </form>
+
+            <div class="login-help">
+                <a href="#">Register</a> - <a href="#">Forgot Password</a>
+            </div>
+        </div>
+    </div>
+</div>
+ <!-- Modal Create Team-->
+<script>
+    $(document).ready(function () {
+        $("#CreateTournament").on('show.bs.modal', function(e){
+           var date= $(e.relatedTarget).data('date');
+
+            //var v = $("#btnvale").val();
+            $("#btnval").val(date);
+        }) 
+            
+      
+       
+    })
+</script>
+
+<div class="nav navbar-nav navbar-right">
+
+    <div class="modal fade" id="CreateTournament" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="loginmodal-container" style="background-color: rgba(255, 182, 62, 0.71);">
+                <h1>Sign Up Tournament</h1><br>
+                <form action="/Main/CreateTournament" method="post">
+                    <input type="text" name="Team_name" placeholder="Team Name" required>
+                    
+                   <input type="text" name="Captain_name" placeholder="@Session["username"]" readonly>
+                    <br /><br />
+                    <input type="number" name="Tournament_id" id="btnval"  hidden readonly/>
+                    <br /><br />
+                    <input type="submit" name="" class="login loginmodal-submit" value="Create Your Tournament">
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<br /> <br/><br />
+<div style="background-color: #FFB63E; color:white; height:70px; padding:10px">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="col-md-4" style="float: right; padding: 10px">
+                @*<button class="btn btn-success" data-toggle="modal" data-target="#CreateTournament">Sign up for a Tournament now</button>*@
+                @*<button class="btn btn-success" onclick="ShowTournaments()">Sign up for Tournament now</button>*@
+                <a href="/Main/TournamentTree" class="btn btn-success" style="background-color: rgba(0, 0, 0, 0.86); border-color: rgba(0, 0, 0, 0.86); color: #13e56e;margin-left:50% " data-toggle="modal" data-target="#checkin-modal">Ready to Play Tournament</a>
+                <script>
+                    function ShowTournaments() {
+                        var x = document.getElementById("tournaments")
+                        if (x.style.display === 'none') {
+                            x.style.display = 'block';
+                        } else {
+                            x.style.display = 'none';
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+</div><br /><br />
+
+@*tournament table s data on the basis of id*@
+@*<div id="tournaments" class="container" style="display:none">
+    <h2 style="color:#FFB63E">We are offering these tournaments</h2><br />
+    <table style="color:#FFB63E">
+        <tbody>
+            
+            @foreach (var v in ViewBag.TournamentList)
+            {
+                <tr>
+                    <td>
+                        @v.Tournament_name
+                    </td>
+                    <td><input id="btnvale" value="@v.Id" type="hidden" /></td>
+                    <td class="btn btn-success"  style="float:right; color:black"><button data-date="@v.Id" data-toggle="modal" data-target="#CreateTournament" style="float:right">Sign Up for the Tournament</button></td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>*@
+
+
+<div class="col-sm-12 tournament-header" style="">
+    <h1 class="t-heading"><i class="fa fa-calendar " aria-hidden="true"></i> Upcoming Tournaments</h1>
+</div>
+
+<div class="col-sm-10 col-sm-offset-1" style="padding:30px;">
+    @foreach (var v in ViewBag.TournamentList)
+            {
+    <div class="col-xl-3 col-md-6 col-sm-6">
+        <div class="tournament-card panel" style="background-color: black; color:white;border: ridge; border-color: orange;">
+            <div class="panel-heading">
+                <a title="Team Flamewave Tournament #39" style="color:#0ed364;font-weight:bold;" class="tournament_card" href="https://www.smashladder.com/tournaments/details/3361/Team-Flamewave-Tournament-39">
+                    @v.Tournament_name
+                </a>
+                <input id="btnval" value="@v.Id" type="hidden" />
+            </div>
+            <div class="panel-body">
+                <div class="game_info " style="">
+                    <img class="tournament_logo_url pull-right" src="https://www.smashladder.com/images/logos/smash-wii-u.png">
+                    <span class="game_name"> Sm4sh Wii U</span>
+                </div>
+                <ul>
+                    <li>
+                        <i class="fa fa-calendar" style="background-color:white;"></i> 4/22/2017 10:00pm
+                    </li>
+                    <li>
+                        Region: <span>online</span>
+                    </li>
+                    <li>
+                        Hosted By:
+                        <a class="username user_id_66492 user_listed_erik8803" href="https://www.smashladder.com/player/66492/erik8803">Erik8803</a>
+                    </li>
+                    <li>
+                        <a href="" data-date="@v.Id" data-toggle="modal" data-target="#CreateTournament" target="_blank">Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank">Bracket</a>
+                    </li>
+                    <li>
+                        <a class="chat" href="#">chat</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    }
+    <div class="col-xl-3 col-md-6 col-sm-6">
+
+        <div class="tournament-card panel">
+            <div class="panel-heading">
+                <a title="Team Flamewave Tournament #39" style="color:#0ed364;font-weight:bold;" class="tournament_card" href="https://www.smashladder.com/tournaments/details/3361/Team-Flamewave-Tournament-39">
+                    Team Flamewave Tournament #39
+                </a>
+            </div>
+            <div class="panel-body">
+                <div class="game_info" style="">
+                    <img class="tournament_logo_url pull-right" src="https://www.smashladder.com/images/logos/melee.png">
+                    <span class="game_name">Sm4sh Wii U</span>
+                </div>
+                <ul>
+                    <li>
+                        <i class="fa fa-calendar"></i> 4/22/2017 10:00pm
+                    </li>
+                    <li>
+                        Region: <span>online</span>
+                    </li>
+                    <li>
+                        Hosted By:
+                        <a class="username user_id_66492 user_listed_erik8803" href="https://www.smashladder.com/player/66492/erik8803">Erik8803</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39/register" target="_blank">Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39" target="_blank">Bracket</a>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 col-sm-6">
+
+        <div class="tournament-card panel">
+            <div class="panel-heading">
+                <a title="Team Flamewave Tournament #39" style="color:#0ed364;font-weight:bold;" class="tournament_card" href="https://www.smashladder.com/tournaments/details/3361/Team-Flamewave-Tournament-39">
+                    Team Flamewave Tournament #39
+                </a>
+            </div>
+            <div class="panel-body">
+                <div class="game_info " style="">
+                    <img class="tournament_logo_url pull-right" src="https://www.smashladder.com/images/logos/smash-3ds.png">
+                    <span class="game_name">Sm4sh Wii U</span>
+                </div>
+                <ul>
+                    <li>
+                        <i class="fa fa-calendar"></i> 4/22/2017 10:00pm
+                    </li>
+                    <li>
+                        Region: <span>online</span>
+                    </li>
+                    <li>
+                        Hosted By:
+                        <a class="username user_id_66492 user_listed_erik8803" href="https://www.smashladder.com/player/66492/erik8803">Erik8803</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39/register" target="_blank">Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39" target="_blank">Bracket</a>
+                    </li>
+                    <li>
+                        <a class="chat" href="#">chat</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 col-sm-6">
+
+        <div class="tournament-card panel">
+            <div class="panel-heading">
+                <a title="Team Flamewave Tournament #39" style="color:#0ed364;font-weight:bold;" class="tournament_card" href="https://www.smashladder.com/tournaments/details/3361/Team-Flamewave-Tournament-39">
+                    Team Flamewave Tournament #39
+                </a>
+            </div>
+            <div class="panel-body">
+                <div class="game_info " style="">
+                    <img class="tournament_logo_url pull-right" src="https://www.smashladder.com/images/logos/smash-3ds.png">
+                    <span class="game_name">Sm4sh Wii U</span>
+                </div>
+                <ul>
+                    <li>
+                        <i class="fa fa-calendar"></i> 4/22/2017 10:00pm
+                    </li>
+                    <li>
+                        Region: <span>online</span>
+                    </li>
+                    <li>
+                        Hosted By:
+                        <a class="username user_id_66492 user_listed_erik8803" href="https://www.smashladder.com/player/66492/erik8803">Erik8803</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39/register" target="_blank">Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39" target="_blank">Bracket</a>
+                    </li>
+                    <li>
+                        <a class="chat" href="#">chat</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 col-sm-6">
+        <div class="tournament-card panel">
+            <div class="panel-heading">
+                <a title="Team Flamewave Tournament #39" style="color:#0ed364;font-weight:bold;" class="tournament_card" href="https://www.smashladder.com/tournaments/details/3361/Team-Flamewave-Tournament-39">
+                    Team Flamewave Tournament #39
+                </a>
+            </div>
+            <div class="panel-body">
+                <div class="game_info " style="">
+                    <img class="tournament_logo_url pull-right" src="https://www.smashladder.com/images/logos/smash-wii-u.png">
+                    <span class="game_name">Sm4sh Wii U</span>
+                </div>
+                <ul>
+                    <li>
+                        <i class="fa fa-calendar"></i> 4/22/2017 10:00pm
+                    </li>
+                    <li>
+                        Region: <span>online</span>
+                    </li>
+                    <li>
+                        Hosted By:
+                        <a class="username user_id_66492 user_listed_erik8803" href="https://www.smashladder.com/player/66492/erik8803">Erik8803</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39/register" target="_blank">Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39" target="_blank">Bracket</a>
+                    </li>
+                    <li>
+                        <a class="chat" href="#">chat</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 col-sm-6">
+
+        <div class="tournament-card panel">
+            <div class="panel-heading">
+                <a title="Team Flamewave Tournament #39" style="color:#0ed364;font-weight:bold;" class="tournament_card" href="https://www.smashladder.com/tournaments/details/3361/Team-Flamewave-Tournament-39">
+                    Team Flamewave Tournament #39
+                </a>
+            </div>
+            <div class="panel-body">
+                <div class="game_info" style="">
+                    <img class="tournament_logo_url pull-right" src="https://www.smashladder.com/images/logos/melee.png">
+                    <span class="game_name">Sm4sh Wii U</span>
+                </div>
+                <ul>
+                    <li>
+                        <i class="fa fa-calendar"></i> 4/22/2017 10:00pm
+                    </li>
+                    <li>
+                        Region: <span>online</span>
+                    </li>
+                    <li>
+                        Hosted By:
+                        <a class="username user_id_66492 user_listed_erik8803" href="https://www.smashladder.com/player/66492/erik8803">Erik8803</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39/register" target="_blank">Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39" target="_blank">Bracket</a>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 col-sm-6">
+
+        <div class="tournament-card panel">
+            <div class="panel-heading">
+                <a title="Team Flamewave Tournament #39" style="color:#0ed364;font-weight:bold;" class="tournament_card" href="https://www.smashladder.com/tournaments/details/3361/Team-Flamewave-Tournament-39">
+                    Team Flamewave Tournament #39
+                </a>
+            </div>
+            <div class="panel-body">
+                <div class="game_info " style="">
+                    <img class="tournament_logo_url pull-right" src="https://www.smashladder.com/images/logos/smash-3ds.png">
+                    <span class="game_name">Sm4sh Wii U</span>
+                </div>
+                <ul>
+                    <li>
+                        <i class="fa fa-calendar"></i> 4/22/2017 10:00pm
+                    </li>
+                    <li>
+                        Region: <span>online</span>
+                    </li>
+                    <li>
+                        Hosted By:
+                        <a class="username user_id_66492 user_listed_erik8803" href="https://www.smashladder.com/player/66492/erik8803">Erik8803</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39/register" target="_blank">Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39" target="_blank">Bracket</a>
+                    </li>
+                    <li>
+                        <a class="chat" href="#">chat</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 col-sm-6">
+
+        <div class="tournament-card panel">
+            <div class="panel-heading">
+                <a title="Team Flamewave Tournament #39" style="color:#0ed364;font-weight:bold;" class="tournament_card" href="https://www.smashladder.com/tournaments/details/3361/Team-Flamewave-Tournament-39">
+                    Team Flamewave Tournament #39
+                </a>
+            </div>
+            <div class="panel-body">
+                <div class="game_info " style="">
+                    <img class="tournament_logo_url pull-right" src="https://www.smashladder.com/images/logos/smash-3ds.png">
+                    <span class="game_name">Sm4sh Wii U</span>
+                </div>
+                <ul>
+                    <li>
+                        <i class="fa fa-calendar"></i> 4/22/2017 10:00pm
+                    </li>
+                    <li>
+                        Region: <span>online</span>
+                    </li>
+                    <li>
+                        Hosted By:
+                        <a class="username user_id_66492 user_listed_erik8803" href="https://www.smashladder.com/player/66492/erik8803">Erik8803</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39/register" target="_blank">Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39" target="_blank">Bracket</a>
+                    </li>
+                    <li>
+                        <a class="chat" href="#">chat</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 col-sm-6">
+        <div class="tournament-card panel">
+            <div class="panel-heading">
+                <a title="Team Flamewave Tournament #39" style="color:#0ed364;font-weight:bold;" class="tournament_card" href="https://www.smashladder.com/tournaments/details/3361/Team-Flamewave-Tournament-39">
+                    Team Flamewave Tournament #39
+                </a>
+            </div>
+            <div class="panel-body">
+                <div class="game_info " style="">
+                    <img class="tournament_logo_url pull-right" src="https://www.smashladder.com/images/logos/smash-wii-u.png">
+                    <span class="game_name">Sm4sh Wii U</span>
+                </div>
+                <ul>
+                    <li>
+                        <i class="fa fa-calendar"></i> 4/22/2017 10:00pm
+                    </li>
+                    <li>
+                        Region: <span>online</span>
+                    </li>
+                    <li>
+                        Hosted By:
+                        <a class="username user_id_66492 user_listed_erik8803" href="https://www.smashladder.com/player/66492/erik8803">Erik8803</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39/register" target="_blank">Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39" target="_blank">Bracket</a>
+                    </li>
+                    <li>
+                        <a class="chat" href="#">chat</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 col-sm-6">
+
+        <div class="tournament-card panel">
+            <div class="panel-heading">
+                <a title="Team Flamewave Tournament #39" style="color:#0ed364;font-weight:bold;" class="tournament_card" href="https://www.smashladder.com/tournaments/details/3361/Team-Flamewave-Tournament-39">
+                    Team Flamewave Tournament #39
+                </a>
+            </div>
+            <div class="panel-body">
+                <div class="game_info" style="">
+                    <img class="tournament_logo_url pull-right" src="https://www.smashladder.com/images/logos/melee.png">
+                    <span class="game_name">Sm4sh Wii U</span>
+                </div>
+                <ul>
+                    <li>
+                        <i class="fa fa-calendar"></i> 4/22/2017 10:00pm
+                    </li>
+                    <li>
+                        Region: <span>online</span>
+                    </li>
+                    <li>
+                        Hosted By:
+                        <a class="username user_id_66492 user_listed_erik8803" href="https://www.smashladder.com/player/66492/erik8803">Erik8803</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39/register" target="_blank">Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39" target="_blank">Bracket</a>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 col-sm-6">
+
+        <div class="tournament-card panel">
+            <div class="panel-heading">
+                <a title="Team Flamewave Tournament #39" style="color:#0ed364;font-weight:bold;" class="tournament_card" href="https://www.smashladder.com/tournaments/details/3361/Team-Flamewave-Tournament-39">
+                    Team Flamewave Tournament #39
+                </a>
+            </div>
+            <div class="panel-body">
+                <div class="game_info " style="">
+                    <img class="tournament_logo_url pull-right" src="https://www.smashladder.com/images/logos/smash-3ds.png">
+                    <span class="game_name">Sm4sh Wii U</span>
+                </div>
+                <ul>
+                    <li>
+                        <i class="fa fa-calendar"></i> 4/22/2017 10:00pm
+                    </li>
+                    <li>
+                        Region: <span>online</span>
+                    </li>
+                    <li>
+                        Hosted By:
+                        <a class="username user_id_66492 user_listed_erik8803" href="https://www.smashladder.com/player/66492/erik8803">Erik8803</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39/register" target="_blank">Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39" target="_blank">Bracket</a>
+                    </li>
+                    <li>
+                        <a class="chat" href="#">chat</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 col-sm-6">
+
+        <div class="tournament-card panel">
+            <div class="panel-heading">
+                <a title="Team Flamewave Tournament #39" style="color:#0ed364;font-weight:bold;" class="tournament_card" href="https://www.smashladder.com/tournaments/details/3361/Team-Flamewave-Tournament-39">
+                    Team Flamewave Tournament #39
+                </a>
+            </div>
+            <div class="panel-body">
+                <div class="game_info " style="">
+                    <img class="tournament_logo_url pull-right" src="https://www.smashladder.com/images/logos/smash-3ds.png">
+                    <span class="game_name">Sm4sh Wii U</span>
+                </div>
+                <ul>
+                    <li>
+                        <i class="fa fa-calendar"></i> 4/22/2017 10:00pm
+                    </li>
+                    <li>
+                        Region: <span>online</span>
+                    </li>
+                    <li>
+                        Hosted By:
+                        <a class="username user_id_66492 user_listed_erik8803" href="https://www.smashladder.com/player/66492/erik8803">Erik8803</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39/register" target="_blank">Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="https://smash.gg/tournament/team-flamewave-tournament-39" target="_blank">Bracket</a>
+                    </li>
+                    <li>
+                        <a class="chat" href="#">chat</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

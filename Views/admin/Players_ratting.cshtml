@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "Players_ratting";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<div class="col-sm-12" style="border:2px solid #FFB63E;border-left:0px;border-right:0px;padding:15px;margin-bottom:20px;color: #0ed364; background:#000;">
+    <h1 style="text-align:center;font-weight:bold;">Players Ratting Dashboard</h1>
+</div>
+<div class="container-fluid  " style=" overflow-y:hidden ;overflow-x:hidden; ">
+
+    <table class="table" id="table_custom">
+        <caption>&nbsp;</caption>
+        <thead>
+            <tr>
+                <th>Player&nbsp;ID</th>
+                <th>Name</th>
+                <th>User&nbsp;Name</th>
+                <th>Total&nbsp;Matches&nbsp;Played</th>
+                <th>Total&nbsp;Matches&nbsp;Win</th>
+                <th>Total&nbsp;Matches&nbsp;Lose</th>
+                <th>Ratting</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody id="client_nw" class="">
+            @foreach (var x in Model)
+            {
+                <tr>
+                    <td>@x.Id</td>
+                    <td>@x.name</td>
+                    <td>@x.username</td>
+                    <td>@x.No_OfMatches_Play</td>
+                    <td>@x.No_OfMatches_Win</td>
+                    <td>@x.No_OfMatches_lose</td>
+                    <td>@x.Ratting</td>
+
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="/admin/update_player_ratting/@x.Id">Update</a></li>
+                            </ul>
+                        </div>
+                    </td>
+
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+
+</div>
+

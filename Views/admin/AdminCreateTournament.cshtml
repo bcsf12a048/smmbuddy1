@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "AdminCreateTournament";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<div class="col-sm-12" style="border:2px solid #FFB63E;border-left:0px;border-right:0px;padding:15px;margin-bottom:20px;color: #0ed364; background:#000;">
+    <h1 style="text-align:center;font-weight:bold;">Admin Tournaments</h1>
+</div>
+<div class="container-fluid  " style="overflow-x:auto;overflow-y:auto">
+
+    <table class=" table" id="table_custom">
+        <caption>&nbsp;</caption>
+        <thead>
+            <tr>
+                <th>Tournament&nbsp;ID</th>
+                <th>Tournament&nbsp;Name</th>
+                <th>Teams&nbsp;Allowed</th>
+                <th>Team&nbsp;Register</th>
+                
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody id="client_nw" class="">
+            @foreach (var x in Model)
+            {
+                <tr>
+                    <td>@x.Id</td>
+                    <td>@x.Tournament_name</td>
+                    <td>@x.No_of_Teams_Allowed</td>
+                    <td>@x.No_Of_teams_registered</td>
+
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="/admin/update_AdminCreateTournament/@x.Id">Update</a></li>
+                                <li><a href="/admin/delete_AdminCreateTournaments/@x.Id">Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
+
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+    <div class="row col-sm-4" id="frm_pad" style="padding-top:12px;margin-left:33%;">
+
+        <div class="col-sm-12 form-group">
+
+            <a href="/admin/AddAdminTournament" class="form-control input-lg focus" style="color: black; background-color: #0ed364;text-align:center; ">Add Tournament</a>
+        </div>
+
+    </div>
+    <div class="row col-sm-4" id="frm_pad" style="padding-top:12px">
+
+
+    </div>
+</div>

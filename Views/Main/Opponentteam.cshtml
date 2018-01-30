@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Opponentteam";
+    Layout = "~/Views/Shared/_LayoutCaptain.cshtml";
+}
+ <br /><br />
+<div id="style-1" class="container">
+    
+    <table style="color:wheat" class="table">
+        <thead>
+            <tr>
+                <td>Team Name</td>
+                <td>Team status</td>
+            </tr>
+        </thead>
+        
+        <tbody style="margin-top:20px">
+           
+            @foreach (var v in Model)
+            {
+                <tr>
+                    
+                    <td>@v.team_name</td>
+                    <td>@v.Status</td>
+                    <td><a type="button" style="margin-top:10px" href="#" id="myBtn" data-toggle="modal" data-target="#host-modal" class="btn btn-default"  onclick="func(@v.Id)">Challenge</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @*select the host modal. you have to save the hosting values in function*@
+    <div class="modal fade" id="host-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="loginmodal-container">
+                <h1>Who will host the match</h1><br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-2">
+                            <form action="/Main/ChangeStatus" method="post">
+                                <input name="host" id="host" value="I host" hidden />
+                                <button type="submit" class="btn btn-success">I host</button>
+                            </form>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-2">
+                            <form action="/Main/ChangeStatus" method="post">
+                                <input name="host" id="host" value="I host" hidden />
+                                <button type="submit" style="margin-right:5px" class="btn btn-success">They host</button>
+                            </form>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2">
+                            <form action="/Main/ChangeStatus" method="post">
+                                <input name="host" id="host" value="I host" hidden />
+                                <button type="submit" class="btn btn-success">We host</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Team";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+
+<div class="col-sm-12" style="border:2px solid #FFB63E;border-left:0px;border-right:0px;padding:15px;margin-bottom:20px;color: #0ed364; background:#000;">
+    <h1 style="text-align:center;font-weight:bold;">Team Dashboard</h1>
+</div>
+<div class="container-fluid  " style="overflow-x:auto;overflow-y:auto">
+
+    <table class=" table" id="table_custom">
+    <caption>&nbsp;</caption>
+    <thead>
+        <tr>
+            <th>Team&nbsp;ID</th>
+            <th>Team&nbsp;Name</th>
+            <th>Captain</th>
+            <th>No&nbsp;Of&nbsp;Players</th>
+            <th>Status</th>
+            <th>Total&nbsp;Matches&nbsp;Played</th>
+            <th>Total&nbsp;Matches&nbsp;Win</th>
+            <th>Total&nbsp;Matches&nbsp;Lose</th>
+            <th>Team Player Status</th>
+            <th>Tournament</th>
+            <th>Team&nbsp;Round</th>
+            <th>Tournament&nbsp;Name</th>
+
+            <th>Action</th>
+
+        </tr>
+    </thead>
+    <tbody id="client_nw" class="">
+        @foreach (var x in Model)
+        {
+            <tr>
+                <td>@x.Id</td>
+                <td>@x.Team_name</td>
+                <td>@x.Captain_name</td>
+                <td>@x.No_ofPlayers</td>
+                <td>@x.Status</td>
+                <td>@x.No_OfMatches_Win</td>
+                <td>@x.No_OfMatches_Lose</td>
+                <td>@x.No_OfMatches_Play</td>
+                <td>@x.TeamPlayer_status</td>
+                <td>@x.RegisterForTournament</td>
+                <td>@x.teamRound_tournament</td>
+                <td>@x.Tournament_name</td>
+
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><a href="/admin/update_team/@x.Id">Update</a></li>
+                            <li><a href="/admin/delete_team/@x.Id">Delete</a></li>
+                        </ul>
+                    </div>
+                </td>
+
+            </tr>
+        }
+
+
+    </tbody>
+    </table>
+
+</div>
+
+
+

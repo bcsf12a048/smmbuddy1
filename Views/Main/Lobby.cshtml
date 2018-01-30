@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Lobby";
+    Layout = "~/Views/Shared/_Layoutmain.cshtml";
+}
+<br /><br /> <br/>
+<div id="style-1" class="container">
+    @if (ViewBag.Playerslobby != null)
+{
+    <table style="color:wheat" class="table">
+        <thead>
+            <tr>
+                <td>Player Name</td>
+                <td>Player Team</td>
+                <td>Player Status</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var v in ViewBag.Playerslobby)
+            {
+                <tr>
+                    <td>@v.UserName</td>
+                    <td>@v.Team_name</td>
+                    <td>@v.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+</div>

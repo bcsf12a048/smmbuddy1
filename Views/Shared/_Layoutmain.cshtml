@@ -1,0 +1,362 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GameStudios</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
+    <link href="~/Content/game.css" rel="stylesheet" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/sharedGame.css" rel="stylesheet" />
+    <link href="~/css/sharedPlayer.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/Gamee.css" rel="stylesheet" />
+
+
+
+    @*<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+   
+    @*<link rel="stylesheet" href="css/sharedGame.css">
+     Bootstrap 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    <link href="~/Content/game.css" rel="stylesheet" />
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/sharedGame.css" rel="stylesheet" />
+    <link href="~/css/sharedPlayer.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/Gamee.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="~/Scripts/bootstrap.min.js"></script>*@
+  
+  
+
+    @*//updated comment*@
+    
+  
+    
+    <style>
+
+        .main {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .round {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 200px;
+            list-style: none;
+            padding: 0;
+        }
+
+            .round .spacer {
+                flex-grow: 1;
+            }
+
+                .round .spacer:first-child,
+                .round .spacer:last-child {
+                    flex-grow: .5;
+                }
+
+            .round .game-spacer {
+                flex-grow: 1;
+            }
+
+        /*
+ *  General Styles
+*/
+        body {
+            font-family: sans-serif;
+            font-size: small;
+            padding: 10px;
+            line-height: 1.4em;
+        }
+
+        li.game {
+            padding-left: 20px;
+        }
+
+            li.game.winner {
+                font-weight: bold;
+            }
+
+            li.game span {
+                float: right;
+                margin-right: 5px;
+            }
+
+        li.game-top {
+            border-bottom: 5px solid #226123;
+        }
+
+        li.game-spacer {
+            border-right: 1px solid #000;
+            min-height: 40px;
+        }
+
+        li.game-bottom {
+            border-top: 1px solid #000;
+        }
+        /****** Invite Friend MODAL ******/
+        .foote {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            padding: 1rem;
+            background-color: #FFB63E;
+            text-align: center;
+            color: white;
+            font-size: 32px;
+        }
+
+        .loginmodal-container {
+            padding: 30px;
+            max-width: 350px;
+            width: 100% !important;
+            background-color: rgba(255, 182, 62, 0.71);
+            margin: 0 auto;
+            border-radius: 2px;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            font-family: roboto;
+        }
+
+            .loginmodal-container h1 {
+                text-align: center;
+                font-size: 1.8em;
+                font-family: roboto;
+                color: white;
+            }
+
+            .loginmodal-container input[type=submit] {
+                width: 100%;
+                display: block;
+                margin-bottom: 10px;
+                position: relative;
+            }
+
+            .loginmodal-container input[type=text], input[type=password] {
+                height: 44px;
+                font-size: 16px;
+                width: 100%;
+                margin-bottom: 10px;
+                -webkit-appearance: none;
+                background: #fff;
+                border: 1px solid #d9d9d9;
+                border-top: 1px solid #c0c0c0;
+                /* border-radius: 2px; */
+                padding: 0 8px;
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+            }
+
+                .loginmodal-container input[type=text]:hover, input[type=password]:hover {
+                    border: 1px solid #b9b9b9;
+                    border-top: 1px solid #a0a0a0;
+                    -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+                    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+                    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+                }
+
+        .loginmodal {
+            text-align: center;
+            font-size: 14px;
+            font-family: 'Arial', sans-serif;
+            font-weight: 700;
+            height: 36px;
+            padding: 0 8px;
+            /* border-radius: 3px; */
+            /* -webkit-user-select: none;
+        user-select: none; */
+        }
+
+        .loginmodal-submit {
+            /* border: 1px solid #3079ed; */
+            border: 5px;
+            color: #ffb63e;
+            text-shadow: 0 1px rgba(0,0,0,0.1);
+            background-color: rgba(31, 31, 31, 0.93);
+            border-color: #0ed364;
+            padding: 17px 0px;
+            font-family: roboto;
+            font-size: 18px;
+            /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
+        }
+
+            .loginmodal-submit:hover {
+                /* border: 1px solid #2f5bb7; */
+                border: 0px;
+                text-shadow: 0 1px rgba(0,0,0,0.3);
+                background-color: rgba(31, 31, 31, 1);
+                color: white;
+                /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
+            }
+
+        .loginmodal-container a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 400;
+            text-align: center;
+            display: inline-block;
+            opacity: 0.6;
+            transition: opacity ease 0.5s;
+        }
+
+        .login-help {
+            font-size: 12px;
+        }
+
+        .dropbtn {
+            background-color: black;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: wheat;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #f1f1f1;
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+        .row {
+            margin-right: 0px;
+            margin-left: 0px;
+        }
+        .footer {
+            color: white;
+            padding: 40px 30px 50px 30px;
+            background-color: #FFB63E;
+            height: 100px;
+            bottom: 0px;
+            font-size: 14px;
+            margin-top: 25%;
+        }
+    </style>
+</head>
+
+<body  style="padding-top: 50px; background-image:url(/Images/goldback2.jpg); " id="style-1">
+   
+     <nav class="navbar  navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="submit" class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="nav navbar-collapse collapse" style="width :190%">
+                <ul class="nav navbar-nav nav-pills" style="margin:auto;">
+                    <li><img class="headerLogo img-responsive" src="/Images/headertab.png" /><a class="headerLogoAnchor" style="z-index:10000;position:absolute;width:225px;top:-39px;left:72px;font-size:25px;font-weight:bold;color:#fff;" href="#"><img class="img-responsive" style="height:110px;" src="/Images/logo.png" /></a></li>
+
+                    <li><a href="#" style="font-size: 20px; color: #efd43c">@Session["username"]</a></li>
+
+                    @*<li style="margin-top:20px; margin-right:5px; color:wheat" id="status2">@Session["color"]</li>*@
+
+                    <li class="active"><a class="pills" href="/Main/GameIndex" style="width:120px;">Home</a></li>
+                    <li><a class="pills" href="/Main/GameAbout" style="width:120px;">About</a></li>
+                    <li><a class="pills" href="/Main/Players" style="width:120px;">Teams</a></li>
+
+                    <li><a class="pills" href="/Main/Tournament" style="width:120px;">Tournaments</a></li>
+
+                    <li><a class="pills" href="/Main/Logout" style="width:120px;">Log Out</a></li>
+                </ul>
+                <!--<form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search" />
+            </div>
+            <button class="btn btn-primary" type="submit">Search</button>
+        </form>-->
+
+            </div>
+        </div>
+    </nav>
+
+    @*<p title="@ViewBag.tour" id="tour" hidden></p>
+    <p title="@ViewBag.emailst" id="ema" hidden></p>*@
+   
+   
+
+   
+    <div>
+        @RenderBody()
+    </div>
+
+    <div class=" col-sm-12 faIconsDiv">
+        <a href="#"><i class="fa fa-facebook fa-3x faIcons fb" aria-hidden="true"></i></a>
+        <a href="#"><i class="fa fa-twitter fa-3x faIcons tw" aria-hidden="true"></i></a>
+        <a href="#"> <i class="fa fa-instagram fa-3x faIcons insta" aria-hidden="true"></i></a>
+        <a href="#"><i class="fa fa-pinterest-p fa-3x faIcons pin" aria-hidden="true"></i></a>
+        <a href="#"><i class="fa fa-snapchat-ghost fa-3x snap" aria-hidden="true"></i></a>
+
+    </div>
+    @*instruction*********************************************@
+
+    <footer class="footer col-sm-12">
+
+        <p style="text-align:center;">&copy; Money Match Gaming 2017 </p>
+
+    </footer>
+
+
+
+
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>*@
+
+  
+
+</body>
+</html>

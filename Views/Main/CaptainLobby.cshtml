@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "CaptainLobby";
+    Layout = "~/Views/Shared/_LayoutCaptain.cshtml";
+}
+<br /><br />
+<script>
+    $(document).ready(function () {
+        $("#myBtn").click(function () {
+            if ("@ViewBag.TeamCount" >="5" ) {
+                location.assign("/Main/Opponentteam");
+              }
+            else {
+                
+                document.getElementById("myBtn").disabled = true;
+                alert("Dear Captain, You are not ready to play. You must have atleast 4 player and a captain to start the game");
+
+            }
+        })
+    })
+</script>
+<br /><br />
+<body>
+    <div id="style-1" class="container">
+        <button style="float:right" id="myBtn" class="btn btn-default">Ready to play</button>
+        @if (ViewBag.Playerslobby != null)
+{
+    <table style="color:wheat" class="table" >
+        <thead>
+            <tr>
+                <th>Player Name</th>
+                <th>Player Team</th>
+                <th>Player Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var v in ViewBag.Playerslobby)
+            {
+                <tr>
+                    <td>@v.UserName</td>
+                    <td>@v.Team_name</td>
+                    <td>@v.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+    </div>
+</body>

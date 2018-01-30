@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "AdminSignup";
+    Layout = "~/Views/Shared/_Layoutadmin.cshtml";
+}
+<div class="col-sm-12" style="border:2px solid #FFB63E;border-left:0px;border-right:0px;padding:15px;margin-bottom:20px;color: #0ed364; background:#000;">
+    <h1 style="text-align:center;font-weight:bold;">Admins</h1>
+</div>
+<div class="container-fluid  " style=" overflow-y:auto ;overflow-x:auto; ">
+
+    <table class="table" id="table_custom">
+        <caption>&nbsp;</caption>
+        <thead>
+            <tr>
+                <th>Admin&nsub;Id</th>
+                <th>UserName</th>
+                <th>Password</th>
+                <th>First&nbsp;Name</th>
+                <th>Last&nbsp;Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody id="client_nw" class="">
+            @foreach (var x in Model)
+            {
+                <tr>
+                    <td>@x.Id</td>
+                    <td>@x.username</td>
+                    <td>@x.pin</td>
+                    <td>@x.first_name</td>
+                    <td>@x.last_name</td>
+                    <td>@x.email</td>
+                    <td>@x.role</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action<span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="/admin/update_admin/@x.Id">Update</a></li>
+                                <li><a href="/admin/delete_admin/@x.Id">Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
+
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+
+</div>
+<div class="col-sm-12">
+    <div class="row col-sm-4" id="frm_pad" style="padding-top:12px">
+
+
+    </div>
+    <div class="row col-sm-4" id="frm_pad" style="padding-top:12px">
+
+        <div class="col-sm-12 form-group">
+
+            <a href="/admin/AddAdminSignup" class="form-control input-lg focus" style="color: black; background-color: #0ed364;text-align:center">Add New Admin</a>
+        </div>
+
+    </div>
+    <div class="row col-sm-4" id="frm_pad" style="padding-top:12px">
+
+
+    </div>
+</div>

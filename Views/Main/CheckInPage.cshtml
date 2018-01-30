@@ -1,0 +1,837 @@
+﻿@{
+    ViewBag.Title = "CheckInPage";
+    Layout = "~/Views/Shared/_Layoutmain.cshtml";
+}
+
+<script>
+    var $v = $.noConflict(true);
+</script>
+
+ 
+
+<div class="foote"><span id="time"></span> minutes!</div>
+
+
+
+<script type="text/javascript">
+
+    function startTimer(duration, display) {
+        var timer = duration, minutes, seconds;
+        setInterval(function () {
+            minutes = parseInt(timer / 60, 10)
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            if (seconds == 01 && minutes == 00) {
+                $('#Result').modal('show');
+            }
+            display.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                timer = duration;
+            }
+        }, 1000);
+    }
+
+    window.onload = function () {
+        var fiveMinutes = 60 * 30,
+            display = document.querySelector('#time');
+
+
+        startTimer(fiveMinutes, display);
+
+    };
+
+</script>
+
+
+<div id="Result" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="width: inherit; background-color: rgba(255, 182, 62, 0.71); color: white; font-family: Candara">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="font-size:25px">Attention</h3>
+            </div>
+            <div class="modal-body" style="font-size:18px ;">
+                <p>Please Submit the the Result</p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+<div class="container" id="style-1">
+
+    <br /><br /><br /><br />
+    <div class="row">
+        <div class="col-xs-4">
+        </div>
+        <div class="col-xs-3">
+            <h1 style="color:white">Round 1</h1>
+        </div>
+        <div class="col-xs-4">
+
+            if (@Session["whoWin"] != null)
+            {
+                <h1 style="color:green">[ @Session["whoWin"] ]</h1>
+            }<br />
+            if (@Session["whoLose"] != null)
+            {
+                <h1 style="color:red">[ @Session["whoLose"] ]</h1>
+            }<br />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4">
+        </div>
+        <div class="col-xs-3">
+            @*<button id="b6" style="margin-left:70px;">Mic</button>*@
+            <button class="btn" id="bracketBtn" onclick="bracket()">Bracket</button><br />
+        </div>
+        @*updated*@
+        <div class="col-xs-4">
+            <button class="btn btn-success" style="float:right; margin-left:5px" onclick="banProcess()">Ban Rules</button>
+            <script>
+                function banProcess() {
+                    $v.getJSON("/Main/CheckRole", function (t) {
+                        if (t == true) {
+                            $v("#BanProcess").modal('show');
+                        }
+                        else {
+                            $v("#occ1").modal('show');
+                        }
+                    })
+                }
+            </script>
+            <button class="btn btn-success" style="float:right" onclick="CallModal()">Submit Result</button>
+            <script>
+                function CallModal() {
+                    $v.getJSON("/Main/CheckRole", function(t){
+                        if(t== true){
+                            $v("#result-modal").modal('show');
+                        }
+                        else{
+                            $v("#occ").modal('show');
+                        }
+                    })
+
+                }
+
+                function bracket() {
+                    var id = @Session["tournamentId"]
+
+                    $v.getJSON("/Home/tree",
+                     {
+
+                         id: id,
+
+                     },
+
+                            function (data) {
+
+                                console.log(data);
+
+                                if (data != null) {
+                                    var t1 = data[0].Team1;
+                                    var t2 = data[0].Team2;
+                                    var t3 = data[1].Team1;
+                                    var t4 = data[1].Team2;
+
+                                    //var R1_win1 = data.;
+                                    var rt1 = data[0].RoundNo_Team1;
+                                    var rt2 = data[0].RoundNo_Team2;
+                                    var rt3 = data[1].RoundNo_Team1;
+                                    var rt4 = data[1].RoundNo_Team2;
+
+                                    $v("#t1").text(t1);
+
+                                    $v("#t10").text("0");
+                                    $v("#t2").text(t2);
+                                    $v("#t11").text("1");
+                                    $v("#t3").text(t3);
+                                    $v("#t12").text("2");
+                                    $v("#t4").text(t4);
+                                    $v("#t13").text("3");
+                                    if ( t1==data[0].Team1 && rt1==2) {
+                                        $v("#t5").text();
+                                        $v("#t14").text("0");
+                                        $v("#t111").addClass("winner");
+                                    }
+                                    else if (t2==data[0].Team2 && rt2==2) {
+                                        $v("#t5").text(R1_win1);
+                                        $v("#t14").text("1");
+                                        $v("#t222").addClass("winner");
+                                    }
+                                    if (t3==data[1].Team1 && rt3==2) {
+                                        $v("#t6").text(R1_win2);
+                                        $v("#t15").text("2");
+                                        $v("#t333").addClass("winner");
+                                    }
+                                    else if (t4==data[1].Team2 && rt4==2) {
+                                        $v("#t6").text(R1_win2);
+                                        $v("#t15").text("3");
+                                        $v("#t444").addClass("winner");
+                                        $v("#t777").addClass("winner");
+                                    }
+                                    if ( t1==data[0].Team1 && rt1==3) {
+                                        $v("#t7").text(R2_win);
+                                        $v("#t16").text("0");
+                                        $v("#t555").addClass("winner");
+                                        $v("#t777").addClass("winner");
+
+                                    }
+                                    else if ( t2==data[0].Team2 && rt2==3) {
+                                        $v("#t7").text(R2_win);
+                                        $v("#t16").text("1");
+                                        $v("#t555").addClass("winner");
+                                        $v("#t777").addClass("winner");
+
+                                    }
+                                    else if ( t3==data[1].Team1 && rt3==3) {
+                                        $v("#t7").text(R2_win);
+                                        $v("#t16").text("2");
+                                        $v("#t666").addClass("winner");
+                                        $v("#t777").addClass("winner");
+
+                                    }
+                                    else if ( t4==data[1].Team2 && rt4==3) {
+                                        $v("#t7").text(R2_win);
+                                        $v("#t16").text("3");
+                                        $v("#t666").addClass("winner");
+                                    }
+                                }
+                                else if (data == false) {
+                                    alert("Sorrry no record");
+                                }
+
+
+                            })
+
+
+                            $v("#bracket1").modal('show');
+
+                    }
+
+
+            </script>
+        </div>
+    </div>
+
+    <div id="bracket1" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" style="width:50%">
+
+            <!-- Modal content-->
+            <div class="modal-content" style=" background-color: rgba(255, 182, 62, 0.71); color: white; font-family: Candara">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title" style="font-size:25px">Bracket</h3>
+                </div>
+                <div class="modal-body">
+
+                    <div class="container">
+
+
+
+
+                        <div class="main">
+                            <h2 class="round" style="color: #226123">Round 1</h2>
+                            <h2 class="round" style="color: #226123">Round 2</h2>
+                            <h2 class="round" style="color: #226123">Round 3</h2>
+                        </div>
+
+                        <div class="main" id="tournament">
+
+                            <ul class="round round-1">
+
+                                <li class="spacer">&nbsp;</li>
+
+                                <li class="game game-top " id="t111" style="color:white"><span id="t1" style="float:left">Team A </span> <span class="circle"></span><span id="t10">0</span></li>
+                                <li class="game game-spacer">&nbsp;</li>
+                                <li class="game game-bottom " id="t222" style="color:white"><span id="t2" style="float:left">Team B </span> <span class="circle"></span><span id="t11">1</span></li>
+
+                                <li class="spacer">&nbsp;</li>
+
+                                <li class="game game-top " id="t333" style="color:white"><span id="t3" style="float:left">Team A </span><span class="circle"></span><span id="t12">2</span></li>
+                                <li class="game game-spacer">&nbsp;</li>
+                                <li class="game game-bottom " id="t444" style="color:white"><span id="t4" style="float:left">Team A </span><span class="circle"></span><span id="t13">3</span></li>
+
+                                <li class="spacer">&nbsp;</li>
+                            </ul>
+                            <ul class="round round-2">
+
+                                <li class="spacer">&nbsp;</li>
+
+                                <li class="game game-top " id="t555" style="color:white"><span id="t5" style="float:left">Team </span><span class="circle"></span><span id="t14"></span></li>
+                                <li class="game game-spacer">&nbsp;</li>
+                                <li class="game game-bottom " id="t666" style="color:white"><span id="t6" style="float:left">Team A </span><span class="circle"></span><span id="t15"></span></li>
+
+                                <li class="spacer">&nbsp;</li>
+                            </ul>
+                            <ul class="round round-3">
+
+                                <li class="spacer" style="flex-grow: 1;">&nbsp;</li>
+
+                                <li class="game game-top " id="t777" style="color:white"><span id="t7" style="float:left">Team</span><span class="circle"></span><span id="t16"></span></li>
+                                <li class="game game-spacer" style="    border-right: 0px">&nbsp;</li>
+
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+<div id="occ" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="width: inherit; background-color: rgba(255, 182, 62, 0.71); color: white; font-family: Candara">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="font-size:25px">Attention</h3>
+            </div>
+            <div class="modal-body" style="font-size:18px ;">
+                <p>Only captain can submit result</p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+<div id="occ1" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="width: inherit; background-color: rgba(255, 182, 62, 0.71); color: white; font-family: Candara">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="font-size:25px">Attention</h3>
+            </div>
+            <div class="modal-body" style="font-size:18px ;">
+                <p>Only captain can Ban Rules</p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-xs-4">
+        <br /><br /><br />
+        <div id="one">
+            <button id="b7" style="background-color:maroon;">@Session["team1"]</button>
+            <button id="b6" style="background-color:yellow;" onclick="CheckinClickT1()">Captain Check In</button>
+            @*updated*@
+            <script>
+                function CheckinClickT1() {
+                    $v.getJSON("/Main/CheckinClickT1", function (t) {
+                        if (t == true) {
+                            $v.getJSON("/Main/teamCountCapt", function (t) {
+                                if (t == true) {
+                                    resulttimer();
+                                    $v("#host-modal").modal('show')
+                                    document.getElementById("b6").disabled = false
+
+                                }
+                                else if(t==false) {
+                                    alert("you dont have enough players online")
+                                    document.getElementById("b6").disabled = true
+
+                                }
+                                else {
+                                    alert(t)
+                                }
+                            });
+                        }
+                        else if (t == false) {
+
+                            document.getElementById("b6").disabled = true
+                            alert("Dear Captain, You are not ready to play. You must have atleast 4 player and a captain to start the game. both the teams must have 5 players online")
+
+                        }
+                        else {
+                            alert(t)
+                        }
+                    })
+   
+                }
+                </script>
+
+        </div><br />
+        <div id="left">
+            @if (ViewBag.team1 != null)
+            {
+                var i = 1;
+                foreach (var v in ViewBag.team1)
+                {
+                    <button id="b1">@v.username</button>
+                    <button id="b2" onclick="COuntTeam(@v.Id)">P @i X</button><br />
+                    @*updated*@
+                    <script>
+                        function COuntTeam(id) {
+                            $v.getJSON("/Main/CountMemberCheckin?id="+id, function (t) {
+                                if (t == true) {
+                                    document.getElementById("b6").disabled = false
+                                    alert("5 members complete")
+                                }
+                                else if (t == false) {
+                                    document.getElementById("b6").disabled= true
+                                    alert("Both the teams must have 5 or 6 player for match")
+                                }
+                                else if(t== "idProb"){
+                                    alert("You can only select your own button")
+                                    document.getElementById("b6").disabled= true
+                                }
+
+                            })
+                        }
+                    </script>
+
+
+                    i++;
+                }
+            }
+
+        </div>
+
+    </div>
+    <div class="col-xs-3">
+        <br /><br /><br /><br />
+        <div id="one">
+            <button id="b3" style="width: 32%;margin-left:0px;" class="match">match chat</button>
+            <button id="b3" style="width: 32%; margin-left: 0px;" class="team">team chat</button>
+            <button id="b3" style="width:32%; margin-left: 0px;" class="b" @*onclick="GChat()"*@>general chat</button>
+        </div>
+        <div id="center" class="chatt" style="overflow-y:scroll;">
+
+            @*<script>
+                function GChat() {
+                    e.preventDefault();
+                    var chat = $.connection.chatHub;
+
+                    //Messages
+                    $messages = $("#messages");
+
+                    //Client Side Method To Access From Server Side Method
+                    chat.client.addMessage = function (frm, msg) {
+
+                        var a = frm;
+                        var b = msg;
+                        $.getJSON("/Chatting/save",
+                        {
+                            a: a,
+                            b: b
+
+                        }, function (data) {
+                            if (data != null) {
+                                $messages.append("<br /><b>" + frm + ":</b>" + msg);
+                            }
+                        }
+                        )
+                    };
+                    $('#name').val('@Session["username"]');
+                    $("#txtMsg").keypress(function (e) {
+                        //when enter
+                        if (e.which == 13) {
+
+                            //get value of input
+                            var input = $(this).val();
+
+                            //send message to "Server Side Method"
+                            chat.server.sendMessage($('#name').val(), input);
+
+                            //Reset TextBox
+                            $(this).val("");
+                        }
+
+                    });
+                    //Hub Starting
+                    $.connection.hub.start();
+
+
+
+                }
+            </script>*@
+
+
+
+            <script>
+
+                $v('.b').click(function (e) {
+                    // prevent the default action when a nav button link is clicked
+                    e.preventDefault();
+
+                    // ajax query to retrieve the HTML view without refreshing the page.
+                    $v.ajax({
+                        type: 'get',
+                        url: '/Chatting/Chat1',
+                        dataType: 'html',
+                        success: function (html) {
+                            // success callback -- replace the div's innerHTML with
+                            // the response from the server.
+                            $v('.chatt').html(html);
+                        }
+                    });
+                 
+                    $v("#center").animate({ scrollTop: $v(document).height() }, "fast");
+                    return false
+                    });
+
+                //for team chat
+                $v('.te').click(function (e) {
+                    // prevent the default action when a nav button link is clicked
+                    e.preventDefault();
+
+                    // ajax query to retrieve the HTML view without refreshing the page.
+                    $v.ajax({
+                        type: 'get',
+                        url: '/Chatting/TeamChat',
+                        dataType: 'html',
+                        success: function (html) {
+                            // success callback -- replace the div's innerHTML with
+                            // the response from the server.
+                            $v('.chatt').html(html);
+                        }
+                    });
+                    $v("#center").animate({ scrollTop: $v(document).height() }, "fast");
+                    return false
+                });
+
+                //for match chat
+                //for team chat
+                $v('.ma').click(function (e) {
+                    // prevent the default action when a nav button link is clicked
+                    e.preventDefault();
+
+                    // ajax query to retrieve the HTML view without refreshing the page.
+                    $v.ajax({
+                        type: 'get',
+                        url: '/Chatting/Matchchat',
+                        dataType: 'html',
+                        success: function (html) {
+                            // success callback -- replace the div's innerHTML with
+                            // the response from the server.
+                            $v('.chatt').html(html);
+                        }
+                    });
+                    $v("#center").animate({ scrollTop: $v(document).height() }, "fast");
+                    return false
+                });
+            </script>
+
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <br /><br /><br />
+        <div id="one">
+            <button id="b6" style="background-color:yellow;" onclick="CheckinClickT2()">Captain Check In</button>
+            <button id="b7" style="background-color:maroon;">@Session["team2"]</button>
+        </div><br />
+        @*updated*@
+        <script>
+            function CheckinClickT2() {
+                $v.getJSON("/Main/CheckinClickT2", function (t) {
+                    if (t == true) {
+                        resulttimer();
+                        if ("@ViewBag.TeamCount" >= "5") {
+                            $("#host-modal").modal('show');
+                            document.getElementById("b6").disabled = false;
+                        }
+                        else {
+                            alert("you dont have enough players online");
+                            document.getElementById("b6").disabled = true;
+                        }
+                    }
+                    else if (t == false) {
+
+                        document.getElementById("b6").disabled = true;
+                        alert("Dear Captain, You are not ready to play. You must have atleast 4 player and a captain to start the game both the teams must have 5 players online");
+
+                    }
+                    else {
+                        alert(t);
+                    }
+                })
+            }
+            </script>
+
+        <div id="right">
+            @if (ViewBag.team2 != null)
+            {
+                var i = 1;
+                foreach (var v in ViewBag.team2)
+                {
+                    <button id="b1">@v.username</button>
+                    <button id="b2" onclick="COuntTeam(@v.Id)">P @i X</button><br />
+                    @*updated*@
+                    <script>
+                        function COuntTeam(id) {
+                            $v.getJSON("/Main/CountMemberCheckin?id="+id, function (t) {
+                                if (t == true) {
+                                    document.getElementById("b6").disabled = false;
+                                }
+                                else if (t == false) {
+                                    document.getElementById("b6").disabled= true;
+                                    alert("Both the teams must have 5 or 6 player for match");
+                                }
+                                else if(t== "idProb"){
+                                    alert("You can only select your own button");
+                                    document.getElementById("b6").disabled= true;
+                                }
+
+                            })
+                        }
+                    </script>
+                    i++;
+                }
+            }
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-4">
+        <div id="left1">
+        </div>
+    </div>
+    <div class="col-xs-3">
+        <div id="center1">
+            <div id="b4" style="width:111%;height:30px;">Player 3</div><br />
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div id="right1">
+        </div>
+    </div>
+</div><br />
+<div class="row">
+    <div class="col-xs-4">
+        <div id="left1">
+            <p>**fnjgnjfdgn**</p>
+        </div>
+    </div>
+    <div class="col-xs-3">
+        <div id="center1">
+            <p>**fnjgnjfdgn**</p>
+            <div id="text"><b> rules| contact admin</b></div><br />
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div id="right1">
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-4">
+        <div id="left1">
+        </div>
+    </div>
+    <div class="col-xs-3">
+        <div id="center1">
+            <button id="b5" style="height:45px">Live Stream</button><br />
+        </div>
+    </div>
+    <div class="col-xs-4">
+        <div id="right1">
+        </div>
+    </div>
+</div><br />
+
+@*select the ban process*@
+
+<!-- Instruction to Ban process Modal -->
+<div id="BanProcess" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style=" width:inherit">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="width: 50%; margin-left: 25%; padding-left: 20px; padding-right: 20px;  background-color: rgba(255, 182, 62, 0.71); color:white; font-family:Candara">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="font-size: 25px;color: #0ed364; text-align: center">Instructions</h3>
+            </div>
+            <div class="modal-body" style="font-size:25px">
+                <p>Dear captain you can ban Only two rules</p>
+                <p>once you ban a rule, then you have to wait for other team to ban another rule</p>
+                <p>check the checkbox to ban the rule</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" style="height:50px; width:200px" class="btn btn-success" onclick="MyFunctionP()" id="btnModalTigger">
+                    Continue
+                </button>
+                <button type="button" style="height:50px; width:200px" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+        <script>
+            function MyFunctionP() {
+                $v('#BanProcess').modal('hide');
+                $v('#BanRules').modal('show');
+            }
+        </script>
+    </div>
+</div>
+
+<!-- Ban ProcessRules Modal -->
+<div id="BanRules" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style=" width:inherit">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="width: 50%; margin-left: 25%; padding-left: 20px; padding-right: 20px;  background-color: rgba(255, 182, 62, 0.71); color:white; font-family:Candara">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="font-size: 25px;color: #0ed364; text-align: center">Rules that you can ban</h3>
+            </div>
+            <div class="modal-body" style="font-size:25px">
+                @foreach (var v in ViewBag.banRules)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-8">
+                                <p id="rule">@v.BanRules</p>
+                            </div>
+                            <div class="col-md-4">
+                                <input id="ruleBtn" type="checkbox" style="float:right" onclick="BanRule(@v.Id)" />
+                            </div>
+                            <script>
+                                function BanRule(id) {
+                                    $v.getJSON("/Main/BanProcess?id=" + id, function (t) {
+                                        if (t == true) {
+                                            document.getElementById("rule").disabled = true;
+                                            document.getElementById("ruleBtn").disabled = true;
+                                        }
+                                        else if(t==false) {
+                                            alert("You already have ban 2 rules");
+                                        }
+                                        else if (t == "no") {
+                                            alert("You have to wait for opponent to ban a process");
+                                        }
+                                        else {
+                                            alert(t);
+                                        }
+                                    })
+                                }
+                            </script>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" style="height:50px; width:200px" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+@*who will host the matchs*@
+<div class="modal fade" id="host-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="loginmodal-container">
+            <h1>Who will host the match</h1><br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <form method="post" action="/Main/ChangeStatus">
+                            <input name="host" id="host" value="I host" hidden />
+                            <button type="submit" id="bcst" class="btn btn-success">I host</button>
+                        </form>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        <form method="post" action="/Main/ChangeStatus">
+                            <input name=" host" id="host" value="They host" hidden />
+                            <button type="submit" style="margin-right:5px" class="btn btn-success">They host</button>
+                        </form>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2">
+                        <form method="post" action="/Main/ChangeStatus">
+                            <input name=" host" id="host" value="We host" hidden />
+                            <button type="submit" class="btn btn-success">We host</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    function ChangeStatus() {
+        $v.getJSON("/Main/ChangeStatus", function (t) { if (t) { alert("ok ") }});
+    }
+</script>
+@*updated*@
+@*Who win the match modal*@
+<div class="modal fade" id="result-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="loginmodal-container">
+            <h1>Who win the match</h1><br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <form>
+
+                            <button onclick="Team1Win()" class="btn btn-success" style="margin-left:10px">Team 1 @Session["team1"]</button>
+                            <script>
+                                function Team1Win() {
+                                    $v.getJSON("/Main/Team1WinR1", function (t)
+                                    {
+                                        if (t=="c")
+                                        {
+                                            window.location.assign("/Main/NewLobby");
+                                        }
+                                    });
+                                }
+                            </script>
+                        </form>
+                    </div>
+                    <div class="col-md-2"> <br /></div>
+                    <div class="col-md-4">
+                        <form>
+
+                            <button onclick="Team2Win()" style="margin-right:15px" class="btn btn-success">Team2 @Session["team2"]</button>
+                        </form>
+                    </div>
+                    <script>
+                        function Team2Win() {
+                            $v.getJSON("/Main/Team2WinR2", function (t) {
+                                if (t == "c") {
+                                    window.location.assign("/Main/NewLobby");
+                                }
+                            });
+                        }
+                    </script>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

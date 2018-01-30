@@ -1,0 +1,35 @@
+﻿
+
+@{
+    ViewBag.Title = "WatchTeam";
+    Layout = "~/Views/Shared/_LayoutCaptain.cshtml";
+}
+<br /><br /><br />
+<div id="style-1" class="container">
+    <h3 style="color:wheat">Dear Captain, Here is your Team</h3>
+    <table style="color:wheat" class="table" id="table_custom">
+        <tbody>
+            <tr>
+                <td>Player Id</td>
+                <td>Player Name</td>
+                <td>Player Role</td>
+                <td>No of Matches Played</td>
+                <td>No of Matches win</td>
+
+            </tr>
+
+            @foreach (var player in Model)
+            {
+                <tr>
+
+                    <td>@player.Id</td>
+                    <td>@player.UserName</td>
+                    <td>@player.Role</td>
+                    <td>@player.NoOfMatches_play</td>
+                    <td>@player.NoOfMatches_win</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
